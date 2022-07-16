@@ -18,6 +18,10 @@ func NewStatsApi() *StatsApi {
 
 func (h *StatsApi) CountAndSumByTime(c *gin.Context) {
 	sTime, err := strconv.Atoi(c.Query("startTime"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"code": "500", "msg": err.Error()})
+		return
+	}
 	eTime, err := strconv.Atoi(c.Query("endTime"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"code": "500", "msg": err.Error()})
