@@ -11,5 +11,7 @@ func PostRouter(g *gin.RouterGroup) {
 	{
 		g.POST("add", c.Add)
 		g.POST("page", c.Page)
+		g.GET("view/:uid", c.IncrViewsCount)
+		g.GET("info", c.Info)
 	}
 }

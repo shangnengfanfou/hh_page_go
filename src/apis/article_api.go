@@ -44,3 +44,26 @@ func (h *ArticleApi) Page(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"code": "200", "msg": "OK", "data": ret})
 }
+
+func (h *ArticleApi) IncrViewsCount(c *gin.Context) {
+	uniqueId := c.Param("uid")
+	if uniqueId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"code": "500", "msg": "uniqueId is required"})
+		return
+	}
+	err := h.articleService.IncrViewsCount(uniqueId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"code": "500", "msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"code": "200", "msg": "OK"})
+}
+
+func (h *ArticleApi) Info(c *gin.Context) {
+	ret, err := h.articleService.Info()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"code": "500", "msg": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"code": "200", "msg": "OK", "data": ret})
+}

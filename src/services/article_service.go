@@ -51,3 +51,25 @@ func (h *ArticleService) GetArticles(p ArticlePaginate) (repositories.ArticlePag
 	}
 	return data, nil
 }
+
+func (h *ArticleService) IncrViewsCount(uniqueId string) error {
+	err := h.ArticleRepo.IncrViewsCount(uniqueId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type ArticleInfo struct {
+	repositories.ArticleInfo
+}
+
+func (h *ArticleService) Info() (ArticleInfo, error) {
+	data, err := h.ArticleRepo.Info()
+	if err != nil {
+		return ArticleInfo{}, err
+	}
+	return ArticleInfo{
+		ArticleInfo: data,
+	}, nil
+}
