@@ -13,7 +13,7 @@ func main() {
 	r := gin.Default()
 
 	// 读取配置文件
-	conf, err := ini.Load("./config/my.ini")
+	conf, err := ini.Load("/data/apps/gosrv/config/my.ini")
 	if err != nil {
 		log.Fatal("配置文件读取失败, err = ", err)
 	}
